@@ -13,6 +13,7 @@ int main(void) {
 }
 
 int *get_num_ptr(void) {
-    int x = 42;
+    // int x = 42; initially, local variable only exists for this function/scope and return a dangling pointer
+    int x = malloc(4); 
     return &x;
 }

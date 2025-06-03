@@ -4,7 +4,7 @@
 // argv - array of strings/char pointer
 
 // i.e. argv[0] = an address like 0x800000
-// 0x800000 -> '.'
+// 0x800000 -> '.' - dereferencing pointer would give char
 // 0x800001 -> '/'
 // 0x800002 -> 'a'
 // 0x800003 -> '.'
@@ -15,6 +15,7 @@
 
 int main(int argc, char *argv[]) {
     printf("argc=%d\n", argc);
+    // i = 0, 1, 2, ... argc - 1
     for (int i = 0; i < argc; i++) {
         printf("argv[%d]=%s\n", i, argv[i]);
     }
