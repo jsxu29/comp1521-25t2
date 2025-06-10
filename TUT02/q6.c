@@ -9,9 +9,22 @@ int main(void) {
     printf("Enter a number: ");
     scanf("%d", &x);
 
-    if (x > 100 && x < 1000) {
-        printf("medium\n");
-    } else {
-        printf("small/big\n");
-    }
+    if (x <= 100) goto small_or_big;
+    if (x >= 1000) goto small_or_big;
+    
+    // converted if (A && B) {} else {}
+    // if (!A) then goto else
+    // if (!B) then goto else
+    // if condition logic then jump to after else logic
+
+    printf("medium\n");
+    goto epilogue;
+
+small_or_big:
+    printf("small/big\n");
+
+epilogue:
+
+
+
 }
