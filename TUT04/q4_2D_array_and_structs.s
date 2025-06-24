@@ -8,6 +8,10 @@
 # Constants
 MAP_SIZE = 5
 N_POINTS = 4
+ROW_OFFSET = 0
+COL_OFFSET = 4
+POINT2D_SZ = 8
+INT_SZ = 4
 
 .text
 
@@ -28,9 +32,36 @@ points_loop_cond:
 	bge	$t0, N_POINTS, points_loop_end	# if (i >= N_POINTS)
 
 					# TODO: Complete these three!
-					# int row = my_points[i].row;
-					# int col = my_points[i].col;
-					# int height = topography_grid[row][col];
+					
+		
+	# address of my_points[i]
+	# 1. calculuate offset (i * sizeof(array element))
+	mul	$t4, $t0, POINT2D_SZ
+	# 2. base address array
+	la	$t5, my_points
+	# 3. &my_points[i]
+	add	$t4, $t4, $t5
+
+	# address of my_points[i].row = row_offset + &my_points[i]
+	lw	$t1, ROW_OFFSET($t4)	# int row = my_points[i].row;
+
+	lw	$t2, COL_OFFSET($t4)	# int col = my_points[i].col;
+	
+	# -----
+	# 1. calculuate position of element
+	mul	$t4, $t1, MAP_SIZE
+	add	$t4, $t4, $t2		# position of [i][j] as 1D
+
+	# 2. get offset
+	mul	$t4, $t4, INT_SZ
+
+	# 3. base address of array
+	la	$t5, topography_grid
+
+	# 4. add
+	add 	$t4, $t4, $t5		# &topography_grid[i][j]
+
+	lw	$t3, ($t4)		# int height = topography_grid[row][col];
 
 					# printf("Height at %d,%d=%d\n", row, col, height);
 

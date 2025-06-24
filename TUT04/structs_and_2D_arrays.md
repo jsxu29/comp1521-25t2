@@ -38,6 +38,10 @@ topography_grid:
 
 position of that element = row size (number of columns in each row) * number of rows + column position
 
+topography_grid[0][2] (row 0 column 2) - position 2
+topography_grid[1][1] (row 1 column 1) - position 6 (5 * 1 + 1)
+
+
 
 ## 2D Array Address
 

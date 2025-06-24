@@ -8,6 +8,7 @@ int max(int array[], int length) {
     int first_element = array[0];
     if (length == 1) {
         // Handle the base-case of the recursion, at the end of the array.
+        // largest element of array of length 1 is array[0] - the only element
         return first_element;
     } else {
         // Recurse on the rest of the array.

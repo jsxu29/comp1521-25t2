@@ -30,7 +30,7 @@ point2D_t my_points[N_POINTS] = {
     {2, 3}, // 1
     {0, 0}, // 2
     {4, 4}, // 3
-    // 8 + 8+ ... + 8 ( index number of times) = index * 8
+    // 8 + 8 + ... + 8 ( index number of times) = index * 8
 };
 
 /*

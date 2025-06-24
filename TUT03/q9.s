@@ -12,10 +12,10 @@ length_counter_cond:
 	beq	$t2, 0, length_counter_post	# if *s == '\0' goto post
 
 length_counter_body:
-	addi	$t1, $t1, 1
+	addi	$t1, $t1, 1			# length++
 
 length_counter_step:
-	addi	$t0, $t0, 1
+	addi	$t0, $t0, 1			# s++
 	j	length_counter_cond
 
 length_counter_post:

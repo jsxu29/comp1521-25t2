@@ -5,7 +5,6 @@ main:
 	begin
 	push	$ra
 
-
 	li	$a0, 11
 	li	$a1, 13
 	li 	$a2, 17
@@ -19,7 +18,6 @@ main:
 	li	$v0, 11
 	li	$a0, '\n'
 	syscall
-
 
 	pop	$ra
 	end
@@ -44,3 +42,49 @@ main:
 # Final return is in $v0
 
 sum4:
+
+sum4__prologue:
+	begin			# create stack fram
+	push	$ra	
+	push 	$s0
+	push	$s1
+	push	$s2
+	push	$s3
+
+	move	$s2, $a2	# c in $s2
+	move	$s3, $a3	# d in $s3
+
+sum4__body:
+	# a, b is already in $a0, $a1
+	jal	sum2		# sum2(a, b)
+	move	$s0, $v0	# $s0 - res1
+
+	move	$a0, $s2	# c -> $a0
+	move	$a1, $s3	# d -> $a1
+	jal	sum2		# sum2(c, d)
+	move	$s1, $v0	# #s1 - res2
+
+	move	$a0, $s0	# res1 -> $a0
+	move	$a1, $s1	# res2 -> $a1
+	jal 	sum2		# $v0 - sum2(res1, res2)
+
+sum4__epilogue:
+	pop	$s3		# pop in reverse order
+	pop	$s2
+	pop	$s1
+	pop	$s0
+	pop 	$ra
+	end			# remove stack frame
+
+	jr	$ra
+
+
+sum2:
+# Registers:
+# - $a0: x
+# - $a1: y
+# - $v0: x+y
+
+	add	$v0, $a0, $a1
+	jr 	$ra	
+
