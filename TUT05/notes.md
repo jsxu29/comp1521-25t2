@@ -9,5 +9,5 @@
 - Q1 (fixed width integer types)
 - Q2 (dec to bin/oct/hex)
 - Q3 (bitwise operations)
-- Q6 (bitwise operations)
-- Q7 (practical question with bitwise operations)
+- Q7 (bitwise operations)
+- Q8 (practical question with bitwise operations)

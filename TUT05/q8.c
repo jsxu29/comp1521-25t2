@@ -1,11 +1,15 @@
 typedef unsigned int Word;
 
 #include <assert.h>
+#include <stdio.h>
 
 // smaller example: 0101 -> 1010
 // for each bit, get its value (whether its 0 or 1), and move it to the correct position
 
 /* 
+mask = 0 when we don't want to keep the value, 
+and 1 where we want to keep the value
+
 get the value for each bit
 
 0101
@@ -55,6 +59,8 @@ i -> 3 - i
 general pattern: i -> (n - 1) - i (where n is the number of bits)
 
 to "add" the bit to the correct position, we can OR it with our result
+OR with a number with 1s where you want that to be a 1, and 0 if you don't want to change the original value
+
 i.e. 
 res 0000
     1000 |
@@ -89,7 +95,35 @@ mask is - 0 where we don't want the value, and 1 where we want to know what the 
 */
 
 Word reverseBits(Word w) {
-    return w;
+    //    31 30                             ...4 3210
+    // 0b 0  0  00 0001 0010 0011 0100 0101 0110 0111
+    // 0b 111 ....                              0
+
+    // bit at position 0 -> position 31
+    // bit at position 1 -> position 30
+    // bit at posiiton i -> position 31 - i
+    // bit at position 31 -> position 0
+
+    Word res = 0;
+    // for each bit
+    for (int i = 0; i < 32; i++) {
+    //  1. extract bit at position i 
+    //      mask = 1 at position i, and 0 everywhere else
+    //      mask = 0b1 << i (i.e. i = 2, 0b 0000 0001 << 2 = 0b 0000 0100)
+        Word mask = 0b1 << i;
+    //      word & mask, if 0, then 0, if not 0, then there is a 1 at where we want
+        if ((w & mask) != 0) {
+    //  2. put it at position 31 - i
+    //     res | (number with 0 or 1 at position 31 - i, and 0 everywhere else)
+    //     res | ((0b1 or 0b0) << (31 - i))
+    //     res = res | (0b1 << (31 - i));
+            res |= (0b1 << (31 - i));
+    //     a *= 2 -> a = a * 2;
+    //     if bit is 0, we don't need to OR it as nothing will happen
+        }
+    }
+
+    return res;
 }
 
 // testing
@@ -104,6 +138,6 @@ int main(void) {
     // 0110 => 0110 = 6
     // 0111 => 1110 = E
     assert(reverseBits(w1) == 0xE6A2C480);
-    puts("All tests passed!");
+    printf("All tests passed!");
     return 0;
 }
