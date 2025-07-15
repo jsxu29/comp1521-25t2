@@ -47,7 +47,7 @@ Intuitive Explanation as to why addition of twos complement works:
 1. Assume that the following hexadecimal values are 16-bit twos-complement. Convert each to the corresponding decimal value.
 
     ii. 0x0444
-    > binary - 0b0000010001000100 \
+    > binary - 0b 0000 0100 0100 0100 \
     > leading bit is a 0, hence this is a positive number \
     > decimal: 1092
 
@@ -63,10 +63,17 @@ Intuitive Explanation as to why addition of twos complement works:
 
     > minus 1: 0b 1111 1111 1111 1110
     > flip the bits to get the value of |-x|: 
-    0b 0000 0000 0000 0001
+    0b 0000 0000 0000 0001 = 1
     > decimal: -1
 
     v. 0x8000
+    > binary - 0b 1000 0000 0000 0000
+    > leading bit is a 1, hence this is a negative number \
+
+    > minus 1:        0b 0111 1111 1111 1111
+    > flip the bits:  0b 1000 0000 0000 0000 = 32768
+    > decimal: -32768
+
     
 
 
@@ -75,12 +82,12 @@ Intuitive Explanation as to why addition of twos complement works:
 2. Give a representation for each of the following decimal values in 16-bit twos-complement bit-strings. Show the value in binary, octal and hexadecimal.
 
    iii. 1000
-    > binary - 0b1111101000 \
-    > hexadecimal - 0x3e8 \
+    > binary - 0b 0000 0011 1110 1000 \
+    > hexadecimal - 0x03e8 \
     > octal - 01750
 
    vi. -5
-    > binary - 0b 1111 1111 1111 1011 \
+    > binary - 0b 1 111 111 111 111 011 \
     > binary representation of 5 is 0b 0000 0000 0000 0101 \
     > flip the bits: 0b 1111 1111 1111 1010 \
     > add 1: 0b 1111 1111 1111 1011
@@ -89,7 +96,18 @@ Intuitive Explanation as to why addition of twos complement works:
 
     > octal - 0177773
 
-  vii. -100
+  vii. -100 
+    > -x = ~x + 1
+    > -100 = ~100 + 1
+    > binary representation 100: 0b 0000 0000 0110 0100
+    > flip the bits:             0b 1111 1111 1001 1011
+                                                    + 1
+    > add 1:                     0b 1111 1111 1001 1100
+
+    > binary: 0b 1 111 111 110 011 100
+    > hexadecimal: 0x F F 9 C
+    > octal: 0 1 7 7 6 3 4
+
 
 ### Range of Integer Data Types in C
 

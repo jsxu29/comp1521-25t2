@@ -30,7 +30,7 @@ floating point number - <span style="background-color: #0F0FFF"> (-1) <sup>sign<
 - sign bit is 1 - negative number -> (-1)<sup>1</sup> = -1
 - sign bit is 0 - positive number -> (-1)<sup>0</sup> = 1
 
-Example: floating point binary representation is 0b 1 01110000 10000000000000000000000
+Example: floating point binary representation is 0b 1 01110000 10000000000000000000000 \
 Decimal = (-1)^1 x (1 + 4194304 x 2^-23) x 2^(112 - 127) = -4.57763671875e-05
 
 ### Special Cases
