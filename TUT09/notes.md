@@ -58,15 +58,15 @@ Consider the lseek(fd, offset, whence) function.
 Consider a file of size 10,000 bytes, open for reading on file descriptor fd, initially positioned at the start of the file (offset 0). What will be the file position after each of these calls to lseek()? Assume that they are executed in sequence, and one will change the file state that the next one deals with.
 
 Initial: offset 0
-lseek(fd, 0, SEEK_END) -> 10,000 + 0 = 10,000 
-lseek(fd, -1000, SEEK_CUR) -> 10,000 - 1,000 = 9,000
-lseek(fd, 0, SEEK_SET) -> 0
-lseek(fd, -100, SEEK_SET);
-lseek(fd, 1000, SEEK_SET);
-lseek(fd, 1000, SEEK_CUR);
+lseek(fd, 0, SEEK_END) -> 10,000 + 0 = 10,000 \
+lseek(fd, -1000, SEEK_CUR) -> 10,000 - 1,000 = 9,000 \
+lseek(fd, 0, SEEK_SET) -> 0 \
+lseek(fd, -100, SEEK_SET); \
+lseek(fd, 1000, SEEK_SET); \
+lseek(fd, 1000, SEEK_CUR); 
 
 ## Environment Variables
-> environment variables are variables defined outside your program, and "in the environment where you run the program", typically defined in your terminal/shell 
+> environment variables are variables defined outside your program, and "in the environment where you run the program", typically defined in your terminal/shell  \
 > $HOME - environment variable that stores the pathname of the HOME directory that contains the files of the user (defined automatically when the user is created)
 
 > getenv - gets an environment variable and returns NULL if it was not set
