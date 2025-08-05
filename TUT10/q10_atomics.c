@@ -2,7 +2,7 @@
 #include <pthread.h>
 #include <stdatomic.h> // for atomics
 
-int global_total = 0;
+atomic_int global_total = 0;
 
 void *add_5000_to_counter(void *data) {
     for (int i = 0; i < 5000; i++) {
@@ -11,6 +11,14 @@ void *add_5000_to_counter(void *data) {
         
         // increment the global total by 1
         global_total++;
+        /*
+        atomic operations
+        global_total++
+        global_total += 1
+
+        non-atomic
+        global_total = global_total + 1
+        */
     }
 
     return NULL;

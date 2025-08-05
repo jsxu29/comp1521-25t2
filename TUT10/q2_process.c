@@ -34,6 +34,18 @@ extern char **environ;
 // creates a process, runs the command given (pass command via arguments), 
 // wait for the process to finish executing
 void spawn_process_and_wait(char **argv) {
+    pid_t pid;
+    int status = posix_spawn(&pid, argv[0], NULL, NULL, argv, environ);
+    if (status != 0) {
+        perror("error in posix_spawn");
+        exit(1);
+    }
+
+    int spawn_exit_status;
+    if (waitpid(pid, &spawn_exit_status, 0) == -1) {
+        perror("wait_pid error\n");
+        exit(1);
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -49,5 +61,20 @@ int main(int argc, char *argv[]) {
     // we create a process that runs command "date +%d-%m-%Y"
     // we create a process that runs command "date +%T"
     // ... 
+    char *date_argv[] = {"/bin/date", "+%d-%m-%Y", NULL};
+    spawn_process_and_wait(date_argv);
+
+    char *time_argv[] = {"/bin/date", "+%T", NULL};
+    spawn_process_and_wait(time_argv);
+
+    char *user_argv[] = {"/usr/bin/whoami", NULL};
+    spawn_process_and_wait(user_argv);
+
+    char *hostname_argv[] = {"/bin/hostname", "-f", NULL};
+    spawn_process_and_wait(hostname_argv);
+
+    char *working_directory_argv[] = {"/bin/realpath", ".", NULL};
+    spawn_process_and_wait(working_directory_argv);
+
     return 0;
 }

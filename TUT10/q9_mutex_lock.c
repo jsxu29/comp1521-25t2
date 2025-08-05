@@ -2,6 +2,7 @@
 #include <pthread.h>
 
 int global_total = 0;
+pthread_mutex_t global_total_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void *add_5000_to_counter(void *data) {
     for (int i = 0; i < 5000; i++) {
@@ -9,7 +10,15 @@ void *add_5000_to_counter(void *data) {
         nanosleep (&(struct timespec){.tv_nsec = 1}, NULL);
         
         // increment the global total by 1
+        pthread_mutex_lock(&global_total_mutex);
         global_total++;
+        pthread_mutex_unlock(&global_total_mutex);
+
+        /*
+        thread 1: locks global_total_mutex, halfway through updating global_total++
+        swap to thread 2
+        thread 2: can not run pthread_mutex_lock, be stuck there
+        */
     }
 
     return NULL;
